@@ -8,8 +8,10 @@ document.getElementById('score').innerHTML = score;
 
 Array.from(cards).forEach(function(card){
     card.addEventListener('click', function (e) {
-        flipCardEffect(card);
-        verificarCarta(e);
+        if(!e.path["2"].classList.contains('--active')){
+            flipCardEffect(card);
+            verificarCarta(e);
+        }
     })
 });
     
@@ -26,6 +28,8 @@ function verificarCarta(e) {
                 if (cartaVirada1.path["2"].dataset.dog == e.path["2"].dataset.dog) {
                     score++;
                     document.getElementById('score').innerHTML = score;
+                    cartaVirada1.path["2"].classList.add('--active');
+                    e.path["2"].classList.add('--active');
 
                     if (score === 7) {
                         document.getElementById('sound-clap').play();
@@ -37,6 +41,7 @@ function verificarCarta(e) {
                             document.getElementById('score').innerHTML = score;
                             Array.from(cards).forEach(function(card){
                                 flipCardEffect(card);
+                                card.classList.remove('--active');
                             })
                         }, 1000);
 
