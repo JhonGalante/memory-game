@@ -3,7 +3,10 @@ var board = document.getElementById('board');
 var cont = 1;
 var cartaVirada1;
 var score = 0;
+var nerros = 0;
 document.getElementById('score').innerHTML = score;
+var placarerros = document.getElementById('number-misses');
+placarerros.innerHTML = nerros;
 
 
 Array.from(cards).forEach(function(card){
@@ -37,8 +40,10 @@ function verificarCarta(e) {
                         setTimeout(function () {
                             alert('Você ganhou!');
                             score = 0;
+                            nerros = 0;
                             embaralharCartas();
                             document.getElementById('score').innerHTML = score;
+                            placarerros.innerHTML = nerros;
                             Array.from(cards).forEach(function(card){
                                 flipCardEffect(card);
                                 card.classList.remove('--active');
@@ -51,6 +56,8 @@ function verificarCarta(e) {
                     setTimeout(function () {
                         flipCardEffect(cartaVirada1.path["2"]);
                         flipCardEffect(e.path["2"]);
+                        nerros++;
+                        placarerros.innerHTML = nerros;
                     }, 600);
                 }
 
